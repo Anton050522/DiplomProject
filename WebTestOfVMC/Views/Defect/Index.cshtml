@@ -9,9 +9,10 @@
 
 @model DefectIndexViewModel
 
-<p class="filter-text">Дефекты</p>
-<br />
-
+<div class="headerOfTable">
+    <div><p class="filter-text">Пользователи</p></div>
+    <div class="excel-div"><img class="excel" src="~/images/exportToExcel.png" /></div>
+</div>
 
 <div class="table">
 
@@ -25,23 +26,26 @@
         <div class="delete-button button__style">
             <input type="submit" class="btn btn-outline-dark" value="Удалить" id="delete-btn" />
         </div>
+        <div class="edit-button button__style">
+            <input type="submit" class="btn btn-outline-dark" value="Информация по дефекту" id="exportOneDef" />
+        </div>
         <div class="filters">
             <form method="get">
                 <div class="form-inline">
 
-                        <p1 class="p1">Организация: </p1>
-                        <select name="organisation" asp-items="Model.OrganisationFilter.Organisations" class="form-control"></select>
+                    <p1 class="p1">Организация: </p1>
+                    <select name="organisation" asp-items="Model.OrganisationFilter.Organisations" class="form-control"></select>
 
-                        <p1 class="p1">Направление: </p1>
-                        <select name="glSection" asp-items="Model.GlobalSectionFilter.GlobalSections" class="form-control"></select>
+                    <p1 class="p1">Направление: </p1>
+                    <select name="glSection" asp-items="Model.GlobalSectionFilter.GlobalSections" class="form-control"></select>
 
-                        <p1 class="p1">Перегон: </p1>
-                        <select name="lcSection" asp-items="Model.LocalSectionFilter.LocalSections" class="form-control"></select>
+                    <p1 class="p1">Перегон: </p1>
+                    <select name="lcSection" asp-items="Model.LocalSectionFilter.LocalSections" class="form-control"></select>
 
-                        <p1 class="p1">Код дефекта: </p1>
-                        <select name="defect" asp-items="Model.DefectFilter.Defects" class="form-control"></select>
+                    <p1 class="p1">Код дефекта: </p1>
+                    <select name="defect" asp-items="Model.DefectFilter.Defects" class="form-control"></select>
 
-                        <input type="submit" value="Применить фильтр" class="btn btn-outline-dark" />
+                    <input type="submit" value="Применить фильтр" class="btn btn-outline-dark" />
                 </div>
             </form>
         </div>
@@ -231,7 +235,7 @@
 @section Scripts{
 
     <script>
-        
+
         function onSuccess(data) {
             $(document).on("ajaxSuccess", function () {
 
@@ -325,6 +329,22 @@
                         defectDiv.html(data);
 
                         $("#updateModal").modal("show");
+                    }
+                });
+            });
+             $(".excel").click(function ()
+            {
+                window.location.href =  "@Url.Action("Export", "Defect")"
+             });
+
+            $("#exportOneDef").click(function () {
+                $.ajax({
+                    url: "@Url.Action("GetOne", "Defect")",
+                    type: "GET",
+                    dataType: "html",
+                    data: { id: element },
+                    success: function (data) {
+                        window.location.href = "@Url.Action("GetOneDefect", "Defect")"
                     }
                 });
             });

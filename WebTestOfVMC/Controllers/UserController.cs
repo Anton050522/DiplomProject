@@ -25,6 +25,7 @@ namespace WebTestOfVMC.Controllers
         private readonly IOrganisationServices _organisationServices;
         private readonly IEmailService _emailService;
         public static UserIndexViewModel currentModel;
+        public static User _userNew;
 
         public UserController(IUserServices _userServices, IOrganisationServices _organisationServices, IEmailService _emailService)
         {
@@ -54,6 +55,7 @@ namespace WebTestOfVMC.Controllers
                 SelectList = _userServices.GetOrganisationList().GetOrganisationSelectList()
 
             };
+            _userNew = _user;
             return PartialView(model);
         }
 
@@ -209,7 +211,7 @@ namespace WebTestOfVMC.Controllers
         {
             using (IXLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled)) {
 
-                var worksheet = workbook.Worksheets.Add("Users");
+                var worksheet = workbook.Worksheets.Add("Пользователи");
 
                 worksheet.Cell(1, 1).Value = "Информация о пользователях";
                 worksheet.Cell(1, 1).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
@@ -250,5 +252,42 @@ namespace WebTestOfVMC.Controllers
                 }
             }
         }
+        [HttpGet]
+        public IActionResult GetOneUser()
+        {
+            using IXLWorkbook workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Досье");
+            worksheet.Cell(1, 1).Value = "Информация о пользователе";
+            worksheet.Cell(1, 1).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+            worksheet.Cell(1, 1).Style.Fill.BackgroundColor = XLColor.Cyan;
+            worksheet.Range(1, 1, 1, 7).Merge().AddToNamed("Titles");
+            worksheet.Cell(2, 1).Value = "Фамилия";
+            worksheet.Cell(2, 2).Value = "Имя";
+            worksheet.Cell(2, 3).Value = "Отчество";
+            worksheet.Cell(2, 4).Value = "Телефон";
+            worksheet.Cell(2, 5).Value = "Email";
+            worksheet.Cell(2, 6).Value = "Организация";
+            worksheet.Cell(2, 7).Value = "Описание пользователя";
+            worksheet.Row(1).Style.Font.Bold = true;
+            worksheet.Cell(3, 1).Value = _userNew.LastName;
+            worksheet.Cell(3, 2).Value = _userNew.FirstName;
+            worksheet.Cell(3, 3).Value = _userNew.SurName;
+            worksheet.Cell(3, 4).SetValue(_userNew.PhoneNumber);
+            worksheet.Cell(3, 5).Value = _userNew.Email;
+            worksheet.Cell(3, 6).Value = _userNew.Organisation.OrgName;
+            worksheet.Cell(3, 7).Value = _userNew.UserRole.GetEnumDescription();
+
+            using var ms = new MemoryStream();
+            worksheet.Columns().AdjustToContents();
+            worksheet.Rows().AdjustToContents();
+            workbook.SaveAs(ms);
+            ms.Flush();
+            return new FileContentResult(ms.ToArray(),
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            {
+                FileDownloadName = $"Досье на пользователя {_userNew.LastName + " " + _userNew.FirstName + " " + _userNew.SurName}.xlsx"
+            };
+        }
     }
 }
+
