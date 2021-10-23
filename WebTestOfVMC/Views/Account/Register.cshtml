@@ -1,0 +1,64 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@using WebTestOfVMC.ViewModels;
+@using RailDBProject.Model;
+
+
+@model UserInfo
+
+<h2>Регистрация</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new User()))
+{
+    <div class="text-center">
+
+        <div class="form-group">
+            @Html.HiddenFor(Model => Model.UserId)
+            <br />
+            @Html.LabelFor(Model => Model.LastName)
+            @Html.EditorFor(Model => Model.LastName)
+            @Html.ValidationMessageFor(Model => Model.LastName)
+            <br />
+            @Html.LabelFor(Model => Model.FirstName)
+            @Html.EditorFor(Model => Model.FirstName)
+            @Html.ValidationMessageFor(Model => Model.FirstName)
+            <br />
+            @Html.LabelFor(Model => Model.SurName)
+            @Html.EditorFor(Model => Model.SurName)
+            @Html.ValidationMessageFor(Model => Model.SurName)
+            <br />
+            @Html.LabelFor(Model => Model.Email)
+            @Html.EditorFor(Model => Model.Email)
+            @Html.ValidationMessageFor(Model => Model.Email)
+            <br />
+            @Html.LabelFor(Model => Model.Password)
+            @Html.EditorFor(Model => Model.Password)
+            @Html.ValidationMessageFor(Model => Model.Password)
+            <br />
+            @Html.LabelFor(Model => Model.Organisation)<br />
+            @Html.DropDownListFor(Model => Model.Organisation, Model.SelectList, new { id = "normaldropdown" })
+            <br />
+            
+
+        </div>
+
+        <div>
+            <input type="submit" class="btn btn-outline-dark" value="Отправить заявку" id="btsubmit" />
+        </div>
+
+    </div>
+
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#normaldropdown").chosen();
+        });
+
+        $(function () {
+            $("#multidropdown").chosen();
+        });
+    </script>
+}

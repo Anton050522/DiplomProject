@@ -1,0 +1,58 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@using Common.ListExtentions;
+@using RailDBProject.Model;
+
+@model OrganisationInfo
+
+<div class="form-group">
+    <a button class="btn btn-outline-dark" data-toggle="modal" data-target="#registerModal">Добавить</a>
+</div>
+
+
+<form asp-action="CreateOrganisation" asp-controller="Organisation" data-ajax="true"
+      data-ajax-method="POST" data-ajax-success="onSuccess">
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="text-center-modal">
+                        <div class="form-group">
+                            <p id="p1">Добавить организацию</p>
+                            <br />
+                            <div class="form-group">
+                                
+                                    @Html.HiddenFor(Model => Model.OrganisationId)
+                                
+                                    @Html.LabelFor(Model => Model.OrgName)
+                                    <br />
+                                    @Html.EditorFor(Model => Model.OrgName)
+                                    @Html.ValidationMessageFor(Model => Model.OrgName)
+                                    <br />
+                                    @Html.LabelFor(Model => Model.OrganisationRole)
+                                    <br />
+                                    @Html.DropDownListFor(Model => Model.OrganisationRole, Model.OrganisationRole.GetSelectList())
+                                    <br />
+                                    @Html.LabelFor(Model => Model.Parent)
+                                    <br />
+                                    @Html.DropDownListFor(Model => Model.Parent.OrganisationId, Model.SelectList)
+                                    @Html.ValidationMessageFor(Model => Model.Parent)
+                                    <br />
+                                    @Html.LabelFor(Model => Model.Children)
+                                    <br />
+                                    @Html.ListBoxFor(Model => Model.SelectedOrganisations, Model.MultiSelectList, new { id = "multidropdown", multiple = "multiple" })
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-outline-dark" value="Добавить" id="sub" />
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

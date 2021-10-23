@@ -1,0 +1,46 @@
+﻿@using WebTestOfVMC.Models
+
+@model GlobalSectionInfo
+
+<div class="form-group">
+    <a button class="btn btn-outline-dark" data-toggle="modal" data-target="#registerModal">Добавить</a>
+</div>
+
+
+<form asp-action="CreateGlobalSection" asp-controller="GlobalSection" data-ajax="true"
+      data-ajax-method="POST" data-ajax-success="onSuccess">
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="text-center-modal">
+                        <div class="form-group">
+                            <p id="p1">Добавить организацию</p>
+                            <br />
+                            <div class="form-group">
+                                @Html.HiddenFor(Model => Model.GlobalSectId)
+
+                                @Html.LabelFor(Model => Model.GlobalSectionName)
+                                @Html.EditorFor(Model => Model.GlobalSectionName)
+                                <br />
+                                @Html.LabelFor(Model => Model.GlobalWayNumber)
+                                @Html.EditorFor(Model => Model.GlobalWayNumber)
+                                <br />
+                                @Html.LabelFor(Model => Model.Organisations)
+                                @Html.DropDownListFor(Model => Model.SelectedOrganisation,
+                                                        Model.MultiSelectList, new { @class = "multidropdown", multiple = "multiple" })
+                                <br />
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-outline-dark" value="Добавить" id="sub" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

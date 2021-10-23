@@ -1,0 +1,32 @@
+﻿@using WebTestOfVMC.Models
+@using EnumExt;
+
+@model LocalSectionInfo
+
+<div id="localSectionId">
+    @Html.HiddenFor(Model => Model.LocalSectionId)
+</div>
+
+<div id="localSectionName">
+    @Html.LabelFor(Model => Model.LocaSectionName)
+    <br />
+    @Html.EditorFor(Model => Model.LocaSectionName)
+</div>
+
+<div id="localSectionWayNumber">
+    @Html.LabelFor(Model => Model.LocalWayNumber)
+    <br />
+    @Html.EditorFor(Model => Model.LocalWayNumber)
+</div>
+
+<div id="globalSections">
+    @Html.LabelFor(Model => Model.GlobalSection)
+    <br />
+    @Html.DropDownListFor(Model => Model.GlobalSection.GlobalSectId, Model.SelectList) 
+</div>
+
+<div id="organisation">
+    @Html.LabelFor(Model => Model.Organisation)
+    <br />
+    @Html.DropDownListFor(Model => Model.Organisation.OrganisationId, Model.OrganisationSelectList)
+</div>

@@ -1,0 +1,60 @@
+﻿
+@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@model UserInfo
+
+
+<div class="text-center">
+    <p>Редактирование пользователя:</p>
+    @Html.HiddenFor(Model => Model.UserId)
+    @Html.DisplayFor(Model => Model.LastName)
+    @Html.DisplayFor(Model => Model.FirstName)
+    
+</div>
+
+<div class="text-center">
+    @using (Html.BeginForm("UpdateUser", "User", FormMethod.Post, new { id = Model.UserId }))
+    {
+
+        <div class="form-group">
+            @Html.HiddenFor(Model => Model.UserId)
+            <br />
+            @Html.LabelFor(Model => Model.LastName)
+            @Html.EditorFor(Model => Model.LastName)
+            @Html.ValidationMessageFor(Model => Model.LastName)
+            <br />
+            @Html.LabelFor(Model => Model.FirstName)
+            @Html.EditorFor(Model => Model.FirstName)
+            @Html.ValidationMessageFor(Model => Model.FirstName)
+            <br />
+            @Html.LabelFor(Model => Model.SurName)
+            @Html.EditorFor(Model => Model.SurName)
+            @Html.ValidationMessageFor(Model => Model.SurName)
+            <br />
+            @Html.LabelFor(Model => Model.Email)
+            @Html.EditorFor(Model => Model.Email)
+            @Html.ValidationMessageFor(Model => Model.Email)
+            <br />
+            @Html.LabelFor(Model => Model.Organisation)
+            @Html.DropDownListFor(Model => Model.Organisation, Model.SelectList)
+            @Html.ValidationMessageFor(Model => Model.Organisation)
+            <br />
+            @Html.LabelFor(Model => Model.UserRole)
+            @Html.DropDownListFor(Modek => Model.UserRole, Model.UserRole.GetSelectList())
+            @Html.ValidationMessageFor(Model => Model.UserRole)
+            <br />
+            @Html.LabelFor(Model => Model.PhoneNumber)
+            @Html.EditorFor(Model => Model.PhoneNumber)
+            @Html.ValidationMessageFor(Model => Model.PhoneNumber)
+            <br />
+            @Html.LabelFor(Model => Model.Password)
+            @Html.EditorFor(Model => Model.Password)
+            @Html.ValidationMessageFor(Model => Model.Password)
+
+        </div>
+        <br />
+        <input type="submit" class="btn btn-success" id="btsubmit" />
+    }
+
+</div>

@@ -1,0 +1,38 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@model DefectoScopeInfo
+
+<div id="defectoscopeId">
+    @Html.HiddenFor(Model => Model.DefectoScopeId)
+</div>
+
+<div id="defectoscopeType">
+    @Html.LabelFor(Model => Model.DefectoScopeType)
+    <br />
+    @Html.DropDownListFor(Model => Model.DefectoScopeType, Model.DefectoScopeType.GetSelectList())
+</div>
+
+<div id="defectoscopeSerialNumber">
+    @Html.LabelFor(Model => Model.SerialNumber)
+    <br />
+    @Html.EditorFor(Model => Model.SerialNumber)
+</div>
+
+<div id="defectoscopeOrganisation">
+    @Html.LabelFor(Model => Model.Organisation)
+    <br />
+    @Html.DropDownListFor(Model => Model.Organisation.OrganisationId, Model.OrganisationSelectList)
+</div>
+
+<div id="defectoscopeMaintenance">
+    @Html.LabelFor(Model => Model.LastMaintenansProcedure)
+    <br />
+    @Html.EditorFor(Model => Model.LastMaintenansProcedure)
+</div>
+
+<div id="defectoscopeOperators">
+    @Html.LabelFor(Model => Model.Operators)
+    <br />
+    @Html.DropDownListFor(Model => Model.SelectedOperator, Model.OperatorMultiSelectList, new { @class = "multidropdown", multiple = "multiple" })
+</div>

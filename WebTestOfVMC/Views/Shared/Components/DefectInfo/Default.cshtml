@@ -1,0 +1,119 @@
+﻿
+@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@using Common.ListExtentions;
+@using RailDBProject.Model;
+
+@model DefectInfo
+
+<div class="form-group">
+    <a button class="btn btn-outline-dark" data-toggle="modal" data-target="#registerModal">Добавить</a>
+</div>
+
+
+<form asp-action="CreateDefect" asp-controller="Defect" data-ajax="true"
+      data-ajax-method="POST" data-ajax-success="onSuccess">
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="text-center-modal">
+                        <div class="form-group">
+                            <p id="p1">Добавить дефект</p>
+                            <br />
+                            <div class="form-group">
+
+                                <div id="defectId">
+                                    @Html.HiddenFor(Model => Model.DefectId)
+                                </div>
+
+                                <div class="dateOfDetection">
+                                    @Html.LabelFor(Model => Model.DateOfDetection)
+                                    <br />
+                                    @Html.EditorFor(Model => Model.DateOfDetection)
+                                </div>
+
+                                <div class="globalSect">
+                                    @Html.LabelFor(Model => Model.LocalSection.GlobalSection)
+                                    <br />
+                                    <div class="dropDownId">
+                                        @Html.DropDownListFor(Model => Model.LocalSection.GlobalSection, Model.GlobalSectionSelectList)
+                                    </div>
+                                        @Html.ValidationMessageFor(Model => Model.LocalSection.GlobalSection)
+                                    <br />
+                                </div>
+
+                                <div id="selectDiv"></div>
+
+                                <div class="kilometer">
+                                    @Html.LabelFor(Model => Model.Kilometer)
+                                    <br />
+                                    @Html.EditorFor(Model => Model.Kilometer)
+                                </div>
+
+                                <div class="pkt">
+                                    @Html.LabelFor(Model => Model.Pkt)
+                                    <br />
+                                    @Html.EditorFor(Model => Model.Pkt)
+                                </div>
+
+                                <div class="path">
+                                    @Html.LabelFor(Model => Model.Path)
+                                    <br />
+                                    @Html.EditorFor(Model => Model.Path)
+                                </div>
+
+                                <div class="waySide">
+                                    @Html.LabelFor(Model => Model.WaySide)
+                                    <br />
+                                    @Html.DropDownListFor(Model => Model.WaySide, Model.WaySide.GetSelectList())
+                                </div>
+
+                                <div class="manufactYear">
+                                    @Html.LabelFor(Model => Model.Manufacture)
+                                    <br />
+                                    @Html.DropDownListFor(Model => Model.Manufacture, Model.Manufacture.GetSelectList())
+                                </div>
+
+                                <div class="manufactYear">
+                                    @Html.LabelFor(Model => Model.ManufactureYear)
+                                    <br />
+                                    @Html.EditorFor(Model => Model.ManufactureYear)
+                                </div>
+
+                                <div class="defCode">
+                                    @Html.LabelFor(Model => Model.DefectCode)
+                                    <br />
+                                    @Html.DropDownListFor(Model => Model.DefectCode, Model.DefectCode.GetSelectList())
+                                </div>
+
+                                <div class="defDepth">
+                                    @Html.LabelFor(Model => Model.DefectDepth)
+                                    <br />
+                                    @Html.EditorFor(Model => Model.DefectDepth)
+                                    
+                                </div>
+
+                                <div class="defLenght">
+                                    @Html.LabelFor(Model => Model.DefectLenght)
+                                    <br />
+                                    @Html.EditorFor(Model => Model.DefectLenght)
+                                   
+                                </div>
+
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-outline-dark" value="Добавить" id="sub" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,87 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@using Common.ListExtentions;
+@using RailDBProject.Model;
+
+@model OperatorInfo
+
+<div class="form-group">
+    <a button class="btn btn-outline-dark" data-toggle="modal" data-target="#registerModal">Добавить</a>
+</div>
+
+
+<form asp-action="CreateOperator" asp-controller="Operator" data-ajax="true"
+      data-ajax-method="POST" data-ajax-success="onSuccess">
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="text-center-modal">
+                        <div class="form-group">
+                            <p id="p1">Регистрация</p>
+
+                            <div id="operatorId">
+                                @Html.HiddenFor(Model => Model.OperatorId)
+                            </div>
+
+                            <div id="operatorLastName">
+                                @Html.LabelFor(Model => Model.LastName)
+                                <br />
+                                @Html.EditorFor(Model => Model.LastName)
+                            </div>
+
+                            <div id="operatorFirstName">
+                                @Html.LabelFor(Model => Model.FirstName)
+                                <br />
+                                @Html.EditorFor(Model => Model.FirstName)
+                            </div>
+
+                            <div id="operatorSurName">
+                                @Html.LabelFor(Model => Model.MiddleName)
+                                <br />
+                                @Html.EditorFor(Model => Model.MiddleName)
+                            </div>
+
+                            <div id="operatorOrganisation">
+                                @Html.LabelFor(Model => Model.Organisation)
+                                <br />
+                                @Html.DropDownListFor(Model => Model.Organisation.OrganisationId, Model.OrganisationSelectList)
+                            </div>
+
+                            <div id="hireDate">
+                                @Html.LabelFor(Model => Model.HireDate)
+                                <br />
+                                @Html.EditorFor(Model => Model.HireDate)
+                            </div>
+
+                            <div id="dismissalDate">
+                                @Html.LabelFor(Model => Model.DismissalDate)
+                                <br />
+                                @Html.EditorFor(Model => Model.DismissalDate)
+                            </div>
+
+                            <div id="operatorQualification">
+                                @Html.LabelFor(Model => Model.Qualification)
+                                <br />
+                                @Html.DropDownListFor(Model => Model.Qualification, Model.Qualification.GetSelectList())
+                            </div>
+
+                            <div id="operatorTraining">
+                                @Html.LabelFor(Model => Model.LastQualificationTraning)
+                                <br />
+                                @Html.EditorFor(Model => Model.LastQualificationTraning)
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-outline-dark" value="Зарегистрировать" id="sub" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,91 @@
+﻿@model WebTestOfVMC.ViewModels.LoginModel
+   
+<div class="autorization-window" id="login-window">
+
+    <div class="text-center" id="login">
+        <p class="p1 autorization">Авторизация</p>
+        <div>
+            <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+                <div class="validation" asp-validation-summary="ModelOnly"></div>
+
+                <div class="form-group" id="formgroup">
+                    <label asp-for="Email">E-mail</label>
+                    <input type="text" asp-for="Email" />
+                    <span asp-validation-for="Email" />
+                </div>
+                <div class="form-group" id="formgroup">
+                    <label asp-for="Password">Password</label>
+                    <input asp-for="Password" />
+                    <span asp-validation-for="Password" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Войти" class="btn btn-outline-dark" />
+                </div>
+            </form>
+        </div>
+        <div class="logotype">
+            <img id="logotype" src="~/images/logo.gif" alt="it must be a logotype" />
+        </div>
+        <br />
+        <br />
+        <div>
+            @await Component.InvokeAsync("UserInfo")
+        </div>
+    </div>
+    <div id="info">
+        <div class="info-element">
+            <p class="info-text">АС "Дефектоскопия" - система автоматизированного учета:</p>
+            <p class="info-ul">
+                <ul class="list">
+                    <li>дефектных и остродефектных рельсов (ф. ПУ-2а, ПУ-2б)</li>
+                    <li>ультразвуковых рельсовых дефектоскопов, задействованных в проведении НК рельсов и сварных стыков</li>
+                    <li>операторов дефектоскопных тележек в части закрепленного за ними оборудования и соблюдения периодичности повышения квалификации</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="info-element pos-icon">
+            <div class="poss-elm1"><img class="info-icon" src="~/images/infoIcon.png"></div>
+            <div class="poss-elm2">
+                <p class="info-text">Если у Вас еще нет учетной записи в АС "Дефектоскопия":</p>
+                <p class="info-ul">
+                    <ul class="list">
+                        <li>пройдите процедуру регистрации нового пользователя</li>
+                        <li>ждите верификации Вашей учетной записи администратором</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="info-element pos-icon">
+            <div class="poss-elm1">
+                <img class="info-icon" src="~/images/contactIcon.png">
+            </div>
+            <div class="poss-elm2">
+                <p class="info-text">Обратная связь:</p>
+                <p class="info-ul">
+                    <ul class="list">
+                        <li>e-mail: aries85@bk.ru</li>
+                        <li>тел.: +375 (29) 217-05-24</li>
+                    </ul>
+                </p>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        function onSuccess(data) {
+            $(document).on("ajaxSuccess", function () {
+                alert(data.newData.emailMessage);
+                window.location = data.newData.url;
+            });
+        }
+    </script>
+}

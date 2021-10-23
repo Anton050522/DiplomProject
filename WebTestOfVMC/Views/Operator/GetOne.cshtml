@@ -1,0 +1,56 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@model OperatorInfo
+
+<div id="operatorId">
+    @Html.HiddenFor(Model => Model.OperatorId)
+</div>
+
+<div id="operatorLastName">
+    @Html.LabelFor(Model => Model.LastName)
+    <br />
+    @Html.EditorFor(Model => Model.LastName)
+</div>
+
+<div id="operatorFirstName">
+    @Html.LabelFor(Model => Model.FirstName)
+    <br />
+    @Html.EditorFor(Model => Model.FirstName)
+</div>
+
+<div id="operatorSurName">
+    @Html.LabelFor(Model => Model.MiddleName)
+    <br />
+    @Html.EditorFor(Model => Model.MiddleName)
+</div>
+
+<div id="operatorOrganisation">
+    @Html.LabelFor(Model => Model.Organisation)
+    <br />
+    @Html.DropDownListFor(Model => Model.Organisation.OrganisationId, Model.OrganisationSelectList)
+</div>
+
+<div id="hireDate">
+    @Html.LabelFor(Model => Model.HireDate)
+    <br />
+    @Html.EditorFor(Model => Model.HireDate)
+</div>
+
+<div id="dismissalDate">
+    @Html.LabelFor(Model => Model.DismissalDate)
+    <br />
+    @Html.EditorFor(Model => Model.DismissalDate)
+</div>
+
+<div id="operatorQualification">
+    @Html.LabelFor(Model => Model.Qualification)
+    <br />
+    @Html.DropDownListFor(Model => Model.Qualification, Model.Qualification.GetSelectList())
+</div>
+
+<div id="operatorTraining">
+    @Html.LabelFor(Model => Model.LastQualificationTraning)
+    <br />
+    @Html.EditorFor(Model => Model.LastQualificationTraning)
+</div>

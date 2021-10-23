@@ -1,0 +1,41 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@model GlobalSectionInfo
+
+<div id="globalSectionId">
+    @Html.HiddenFor(Model => Model.GlobalSectId)
+</div>
+
+<div id="globalSectionNameName">
+    @Html.LabelFor(Model => Model.GlobalSectionName)
+    <br />
+    @Html.EditorFor(Model => Model.GlobalSectionName)
+</div>
+
+<div id="globalSectionWayNumber">
+    @Html.LabelFor(Model => Model.GlobalWayNumber)
+    <br />
+    @Html.EditorFor(Model => Model.GlobalWayNumber)
+</div>
+
+<div id="globalSectionOrganisations">
+    @Html.LabelFor(Model => Model.Organisations)
+    <br />
+    @Html.DropDownListFor(Model => Model.SelectedOrganisation, Model.MultiSelectList, new { @class = "multidropdown", multiple = "multiple" })
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".multidropdown").select2();
+    });
+
+
+</script>
+
+@section Scripts{
+    $(document).ready(function () {
+    $(".multidropdown").select2();
+    });
+}

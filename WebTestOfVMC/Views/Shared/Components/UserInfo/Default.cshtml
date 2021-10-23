@@ -1,0 +1,69 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@using Common.ListExtentions;
+@using RailDBProject.Model;
+
+@model UserInfo
+
+<div class="form-group">
+    <a button class="btn btn-outline-dark" data-toggle="modal" data-target="#registerModal">Регистрация</a>
+</div>
+
+
+<form asp-action="CreateUser" asp-controller="User" data-ajax="true"
+      data-ajax-method="POST" data-ajax-success="onSuccess">
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="text-center-modal">
+                        <div class="form-group">
+                            <p id="p1">Регистрация</p>
+                            @Html.HiddenFor(Model => Model.UserId)
+                            <br />
+                            @Html.LabelFor(Model => Model.LastName)
+                            @Html.EditorFor(Model => Model.LastName)
+                            @Html.ValidationMessageFor(Model => Model.LastName)
+                            <br />
+                            @Html.LabelFor(Model => Model.FirstName)
+                            @Html.EditorFor(Model => Model.FirstName)
+                            @Html.ValidationMessageFor(Model => Model.FirstName)
+                            <br />
+                            @Html.LabelFor(Model => Model.SurName)
+                            @Html.EditorFor(Model => Model.SurName)
+                            @Html.ValidationMessageFor(Model => Model.SurName)
+                            <br />
+                            @Html.LabelFor(Model => Model.PhoneNumber)
+                            @Html.EditorFor(Model => Model.PhoneNumber)
+                            @Html.ValidationMessageFor(Model => Model.PhoneNumber)
+                            <br />
+                            @Html.LabelFor(Model => Model.Email)
+                            @Html.EditorFor(Model => Model.Email)
+                            @Html.ValidationMessageFor(Model => Model.Email)
+                            <br />
+                            @Html.LabelFor(Model => Model.Password)
+                            @Html.EditorFor(Model => Model.Password)
+                            @Html.ValidationMessageFor(Model => Model.Password)
+                            <br />
+                            @Html.LabelFor(Model => Model.Organisation)<br />
+                            @Html.DropDownListFor(Model => Model.OrganisationId, Model.SelectList)
+                            <br />
+                            @if (ViewContext.HttpContext.User.Identity.IsAuthenticated == true)
+                            {
+                        @Html.LabelFor(Model => Model.UserRole)
+                                        @Html.DropDownListFor(Model => Model.UserRole, Model.UserRole.GetSelectList())
+                                                        @Html.ValidationMessageFor(Model => Model.UserRole)}
+                            <br />
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-outline-dark" value="Зарегистрировать" id="sub" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery-ajax-unobtrusive@3.2.6",
+      "destination": "wwwroot/lib/jquery-ajax-unobtrusive/"
+    },
+    {
+      "library": "toast-css@1.1.0",
+      "destination": "wwwroot/toast-css/"
+    },
+    {
+      "library": "angular-toastr@2.1.1",
+      "destination": "wwwroot/lib/angular-toastr/"
+    },
+    {
+      "library": "chosen@1.8.7",
+      "destination": "wwwroot/lib/chosen/"
+    },
+    {
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/lib/select2/"
+    },
+    {
+      "library": "angular-chosen-localytics@1.9.3",
+      "destination": "wwwroot/lib/angular-chosen-localytics/"
+    }
+  ]
+}

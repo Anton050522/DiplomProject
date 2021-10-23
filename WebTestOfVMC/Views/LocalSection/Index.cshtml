@@ -1,0 +1,205 @@
+﻿
+@using EnumExt;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using CommonClasses.PaginationAndSort.IndexViewModelClasses;
+@using RailDBProject.Model;
+
+@model LocalSectionIndexViewModel
+
+<p class="filter-text">Перегоны</p>
+<br />
+
+<div class="table">
+
+    <div id="manipulation-buttons">
+        <div class="create-button button__style">
+            @await Component.InvokeAsync("LocalSectionInfo")
+        </div>
+        <div class="edit-button button__style">
+            <input type="submit" class="btn btn-outline-dark" value="Редактировать" id="edit-btn" />
+        </div>
+        <div class="delete-button button__style">
+            <input type="submit" class="btn btn-outline-dark" value="Удалить" id="delete-btn" />
+        </div>
+        <div class="filters">
+            <form method="get">
+                <div class="form-inline">
+
+                    <p1 class="p1">Направления: </p1>
+                    <select name="glSection" asp-items="Model.GlobalSectionFilter.GlobalSections" class="form-control"></select>
+
+                    <input type="submit" value="Применить фильтр" class="btn btn-outline-dark" />
+                </div>
+            </form>
+        </div>
+    </div>
+ 
+    <table class="table">
+        <tr class="p1 intable">
+            <th class="size-th">
+                <p class="p1">№ п/п</p>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-controller="LocalSection"
+                   asp-route-sortOrder="@(Model.LocalSectionSortViewModel.LocalWaySort)">
+                    <p class="p1">№ пути<img src="~/images/sort.png" id="sort" /></p>
+                </a>
+
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="LocalSection"
+                   asp-route-sortOrder="@(Model.LocalSectionSortViewModel.LocalSectionNameSort)">
+                    <p class="p1">Наименование перегона<img src="~/images/sort.png" id="sort" /></p>
+                </a>
+            </th>
+        </tr>
+
+        @{ int rowNo = 0; }
+
+        @foreach (LocalSection u in Model.LocalSections)
+        {
+            <tr class="table-row" id="@u.LocalSectionId">
+                <td>@(rowNo += 1)</td>
+                <td>@u.LocalWayNumber</td>
+                <td>@u.LocalSectionName</td>
+            </tr>
+        }
+    </table>
+
+
+    @if (Model.PageView.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageView.PageNumber - 1)"
+           asp-route-sortorder="@(Model.LocalSectionSortViewModel.Current)"
+           class="btn  btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageView.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageView.PageNumber + 1)"
+           asp-route-sortorder="@(Model.LocalSectionSortViewModel.Current)"
+           class="btn btn-outline-dark">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+
+    <form asp-action="UpdateLocalSection" asp-controller="LocalSection" asp-route-id="id" data-ajax="true"
+          data-ajax-method="POST" data-ajax-success="onUpdate">
+
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="text-center-modal">
+                            <div class="form-group">
+                                <p id="p1">Редактирование</p>
+
+                                <div id="userDiv"></div>
+
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-outline-dark" value="Сохранить изменения" id="sub" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts{
+
+    <script>
+
+        function onSuccess(data) {
+            $(document).on("ajaxSuccess", function () {
+
+                    alert(data.emailMessage);
+                    window.location = data.url;
+            });
+        }
+
+        function onUpdate(data) {
+            $(document).on("ajaxSuccess", function () {
+
+                alert(data.newData.emailMessage);
+                window.location = data.newData.url;
+            });
+        }
+
+        var clicked = false;
+        var element = null;
+        var userDiv = $("#userDiv");
+
+        $(document).ready(function () {
+            $(".multidropdown").select2();
+            $(".edit-button").hide();
+            $(".delete-button").hide();
+
+            $(".table-row").click(function () {
+
+                if (!clicked)
+                {
+                    element = $(this).attr("id");
+                    $(this).css({ 'backgroundColor': '#fff', 'color': '#000' });
+                    clicked = true;
+                    $(".edit-button").show();
+                    $(".delete-button").show();
+                }
+                else
+                {
+                    if ($(this).attr("id") == element) {
+                        $(this).css({ 'backgroundColor': '', 'color': '' });
+                        clicked = false;
+                        $(".edit-button").hide();
+                        $(".delete-button").hide();
+                    }
+                    $(".table-row").click(function () { return false });
+
+                    if ($(this).attr("id") != element) {
+                        alert("Для выбора новой записи разактивируйте ранее выбранную!")
+                    }
+                };
+            });
+
+            $("#delete-btn").click(function () {
+                $.ajax({
+                    url: "@Url.Action("DeleteGlobalSection","GlobalSection")",
+                    type: "POST",
+                    dataType: "html",
+                    data: { id: element },
+                    success: function (data) {
+                        alert("Удаление прошло успешно!")
+                        window.location.reload();
+                    }
+                });
+            });
+
+            $("#edit-btn").click(function ()
+            {
+                $.ajax({
+                        url: "@Url.Action("GetOne", "LocalSection")",
+                        type: "GET",
+                        dataType: "html",
+                        data: { id: element },
+                    success: function (data) {
+                        userDiv.html(data);
+
+                        $("#updateModal").modal("show");
+                    }
+                });
+            });
+        });
+
+    </script>
+}

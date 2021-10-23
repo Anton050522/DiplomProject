@@ -1,0 +1,81 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@model DefectInfo
+
+<div id="defectId">
+    @Html.HiddenFor(Model => Model.DefectId)
+</div>
+
+<div class="dateOfDetection">
+    @Html.LabelFor(Model => Model.DateOfDetection)
+    <br />
+    @Html.EditorFor(Model => Model.DateOfDetection)
+</div>
+
+<div class="localSect">
+    @Html.LabelFor(Model => Model.LocalSection)
+    <br />
+    @Html.DropDownListFor(Model => Model.LocalSection.LocalSectionId, Model.LocalSectionSelectList)
+    @Html.ValidationMessageFor(Model => Model.LocalSection)
+    <br />
+</div>
+
+<div class="kilometer">
+    @Html.LabelFor(Model => Model.Kilometer)
+    <br />
+    @Html.EditorFor(Model => Model.Kilometer)
+    @Html.ValidationMessageFor(Model => Model.Kilometer)
+    <br />
+</div>
+
+<div class="Pkt">
+
+    @Html.LabelFor(Model => Model.Pkt)
+    <br />
+    @Html.EditorFor(Model => Model.Pkt)
+    @Html.ValidationMessageFor(Model => Model.Pkt)
+
+</div>
+
+<div class="manufacturer">
+    @Html.LabelFor(Model => Model.Manufacture)
+    <br />
+    @Html.DropDownListFor(Model => Model.Manufacture, Model.Manufacture.GetSelectList())
+</div>
+
+<div class="manufactYear">
+    @Html.LabelFor(Model => Model.ManufactureYear)
+    <br />
+    @Html.EditorFor(Model => Model.ManufactureYear)
+</div>
+
+<div class="path">
+    @Html.LabelFor(Model => Model.Path)
+    <br />
+    @Html.EditorFor(Model => Model.Path)
+</div>
+
+<div class="waySide">
+    @Html.LabelFor(Model => Model.WaySide)
+    <br />
+    @Html.DropDownListFor(Model => Model.WaySide, Model.WaySide.GetSelectList())
+</div>
+
+<div class="defCode">
+    @Html.LabelFor(Model => Model.DefectCode)
+    <br />
+    @Html.DropDownListFor(Model => Model.DefectCode, Model.DefectCode.GetSelectList())
+</div>
+
+<div class="defDepth">
+    @Html.LabelFor(Model => Model.DefectDepth)
+    <br />
+    @Html.EditorFor(Model => Model.DefectDepth)
+</div>
+
+<div class="defLenght">
+    @Html.LabelFor(Model => Model.DefectLenght)
+    <br />
+    @Html.EditorFor(Model => Model.DefectLenght)
+</div>

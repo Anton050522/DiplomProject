@@ -1,0 +1,285 @@
+﻿
+@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using CommonClasses.PaginationAndSort.IndexViewModelClasses
+@using RailDBProject.Model;
+@using CommonClasses.PaginationAndSort.Filters
+
+@model OperatorIndexViewModel
+   
+ <div class="headerOfTable">
+        <div><p class="filter-text">Операторы</p></div>
+        <div class="excel-div"><img class="excel" src="~/images/exportToExcel.png" /></div>
+ </div>
+   
+<br />
+<div class="table">
+
+    <div id="manipulation-buttons">
+        <div class="create-button button__style">
+            @await Component.InvokeAsync("OperatorInfo")
+        </div>
+        <div class="edit-button button__style">
+            <input type="submit" class="btn btn-outline-dark" value="Редактировать" id="edit-btn" />
+        </div>
+        <div class="delete-button button__style">
+            <input type="submit" class="btn btn-outline-dark" value="Удалить" id="delete-btn" />
+        </div>
+        <div class="filters">
+            <form method="get">
+                <div class="form-inline">
+
+                    <p1 class="p1">Организация: </p1>
+                    <select name="company" asp-items="Model.OrganisationFilter.Organisations" class="form-control"></select>
+
+                    <input type="submit" value="Применить фильтр" class="btn btn-outline-dark" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <tr class="p1 intable">
+            <th class="size-th">
+                <p class="p1">№ п/п</p>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.LastNameSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Фамилия <img src="~/images/sort.png" id="sort" /></p></a>
+
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.FirstNameSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Имя <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.MiddleNameSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Отчество <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.OrganisationSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Организация <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.HireDateSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Дата приема <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.DismissalDateSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Дата увольнения <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.QualificationSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Квалификация <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.LastQualificationTraningSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Повышение квалификации <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Operator"
+                   asp-route-sortOrder="@(Model.OperatorSortViewModel.DefectoscopeSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Дефектоскоп <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+        </tr>
+
+        @{ int rowNo = 0; }
+        @foreach (Operator o in Model.Operators)
+        {
+            <tr class="table-row" id="@o.OperatorId">
+                <td>@(rowNo += 1)</td>
+                <td>@o.LastName</td>
+                <td>@o.FirstName</td>
+                <td>@o.MiddleName</td>
+                <td>@o.Organisation.OrgName</td>
+                <td>@o.HireDate.ToShortDateString()</td>
+                <td>@o.DismissalDate</td>
+                <td>@o.Qualification.GetEnumDescription()</td>
+                <td>@o.LastQualificationTraning.ToShortDateString()</td>
+                @if (o.Defectoscope != null)
+                {
+                    <td>@o.Defectoscope.DefectoScopeType.GetEnumDescription()</td>
+
+                }
+                else
+                {
+                    <td><text>Не закреплен</text></td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+@if (Model.PageView.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageView.PageNumber - 1)"
+       asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+       asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"
+       asp-route-sortorder="@(Model.OperatorSortViewModel.Current)"
+       class="btn  btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageView.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageView.PageNumber + 1)"
+       asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+       asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"
+       asp-route-sortorder="@(Model.OperatorSortViewModel.Current)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+
+<form asp-action="UpdateOperator" asp-controller="Operator" asp-route-id="id" data-ajax="true"
+      data-ajax-method="POST" data-ajax-success="onUpdate">
+
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="text-center-modal">
+                        <div class="form-group">
+                            <p id="p1">Редактирование</p>
+
+                            <div id="userDiv"></div>
+
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-outline-dark" value="Сохранить изменения" id="sub" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+
+    <script>
+
+        function onSuccess(data) {
+            $(document).on("ajaxSuccess", function () {
+
+                    alert(data.emailMessage);
+                    window.location = data.url;
+            });
+        }
+
+        function onUpdate(data) {
+            $(document).on("ajaxSuccess", function () {
+
+                alert(data.emailMessage);
+                window.location = data.url;
+            });
+        }
+
+        var clicked = false;
+        var element = null;
+        var userDiv = $("#userDiv");
+
+        $(document).ready(function () {
+            $(".multidropdown").select2();
+            $(".edit-button").hide();
+            $(".delete-button").hide();
+
+            $(".table-row").click(function () {
+
+                if (!clicked)
+                {
+                    element = $(this).attr("id");
+                    $(this).css({ 'backgroundColor': '#fff', 'color': '#000' });
+                    clicked = true;
+                    $(".edit-button").show();
+                    $(".delete-button").show();
+                }
+                else
+                {
+                    if ($(this).attr("id") == element) {
+                        $(this).css({ 'backgroundColor': '', 'color': '' });
+                        clicked = false;
+                        $(".edit-button").hide();
+                        $(".delete-button").hide();
+                    }
+                    $(".table-row").click(function () { return false });
+
+
+                    if ($(this).attr("id") != element) {
+                        alert("Для выбора новой записи разактивируйте ранее выбранную!")
+                    }
+                };
+            });
+
+            $("#delete-btn").click(function () {
+                $.ajax({
+                    url: "@Url.Action("DeleteOperator","Operator")",
+                    type: "POST",
+                    dataType: "html",
+                    data: { id: element },
+                    success: function (data) {
+                        alert("Удаление прошло успешно!")
+                        window.location.reload();
+                    }
+                });
+            });
+
+            $("#edit-btn").click(function ()
+            {
+                $.ajax({
+                        url: "@Url.Action("GetOne", "Operator")",
+                        type: "GET",
+                        dataType: "html",
+                        data: { id: element },
+                    success: function (data) {
+                        userDiv.html(data);
+
+                        $("#updateModal").modal("show");
+                    }
+                });
+            });
+        });
+
+    </script>
+}

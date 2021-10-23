@@ -1,0 +1,207 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using CommonClasses.PaginationAndSort.IndexViewModelClasses;
+@using RailDBProject.Model;
+
+@model OrganisationIndexViewModel
+
+
+<p class="filter-text">Организации</p>
+<br />
+<div class="table">
+
+    <div id="manipulation-buttons">
+        <div class="create-button button__style">
+            @await Component.InvokeAsync("OrganisationInfo")
+        </div>
+        <div class="edit-button button__style">
+            <input type="submit" class="btn btn-outline-dark" value="Редактировать" id="edit-btn" />
+        </div>
+        <div class="delete-button button__style">
+            <input type="submit" class="btn btn-outline-dark" value="Удалить" id="delete-btn" />
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <table class="table">
+        <tr class="p1 intable">
+            <th class="size-th">
+                <p class="p1">№ п/п</p>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Organisation"
+                   asp-route-sortOrder="@(Model.OrganisationSortViewModel.OrganisationSort)"
+                   asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+                   asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"><p class="p1">Организация <img src="~/images/sort.png" id="sort" /></p></a>
+            </th>
+
+            <th>
+                <p class="p1">Вышестоящая организация</p>
+            </th>
+
+            <th>
+                <p class="p1">Подчиненные организации</p>
+            </th>
+
+            @{ int rowNo = 0; }
+            @foreach (Organisation d in Model.Organisations)
+            {
+            <tr class="table-row" id="@d.OrganisationId">
+
+                <td>@(rowNo += 1)</td>
+                <td>@d.OrgName</td>
+                @if (d.Parent != null)
+                {
+                    <td>@d.Parent.OrgName</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (d.Children != null)
+                {
+                    <td>
+                        @foreach (var item in d.Children)
+                        {
+                            @item.OrgName <text> | </text>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+        </table>
+    </div>
+
+
+    @if (Model.PageView.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageView.PageNumber - 1)"
+           asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+           asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"
+           asp-route-sortorder="@(Model.OrganisationSortViewModel.Current)"
+           class="btn  btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageView.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageView.PageNumber + 1)"
+           asp-route-name="@(Model.OrganisationFilter.SelectedName)"
+           asp-route-company="@(Model.OrganisationFilter.SelectedOrganisation)"
+           asp-route-sortorder="@(Model.OrganisationSortViewModel.Current)"
+           class="btn btn-outline-dark">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+
+<form asp-action="UpdateOrganisation" asp-controller="Organisation" asp-route-id="id" data-ajax="true"
+      data-ajax-method="POST" data-ajax-success="onUpdate">
+
+    <div class="modal fade" id="orgUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialogg">
+            <div class="modal-content modal-contentt">
+                <div class="modal-body">
+                    <div class="text-center-modal modal_width">
+                        <div class="form-group">
+                            <p id="p1">Редактирование</p>
+
+                            <div id="userDiv" class="user_Div"></div>
+
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-outline-dark" value="Сохранить изменения" id="sub" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+@section Scripts{
+        
+<script>
+
+    function onSuccess(data) {
+        $(document).on("ajaxSuccess", function () {
+            alert(data.emailMessage);
+            window.location = data.url;
+        });
+    }
+
+    function onUpdate(data) {
+        $(document).on("ajaxSuccess", function () {
+            alert(data.newData.emailMessage);
+            window.location = data.newData.url;
+        });
+    }
+
+    var clicked = false;
+    var element = null;
+    var userDiv = $("#userDiv");
+
+    $(document).ready(function () {
+        $("#multidropdown").select2();
+        $(".edit-button").hide();
+        $(".delete-button").hide();
+        $(".table-row").click(function () {
+
+            if (!clicked)
+            {
+                element = $(this).attr("id");
+                $(this).css({ 'backgroundColor': '#fff', 'color': '#000' });
+                clicked = true;
+                $(".edit-button").show();
+                $(".delete-button").show();
+            }
+            else
+            {
+                if ($(this).attr("id") == element) {
+                    $(this).css({ 'backgroundColor': '', 'color': '' });
+                    clicked = false;
+                    $(".edit-button").hide();
+                    $(".delete-button").hide();
+                }
+                $(".table-row").click(function () { return false });
+            };
+        });
+
+        $("#delete-btn").click(function () {
+            $.ajax({
+                url: "@Url.Action("DeleteOrganisation","Organisation")",
+                type: "POST",
+                dataType: "html",
+                data: { id: element },
+                success: function (data) {
+                    alert("Удаление прошло успешно!")
+                    window.location.reload();
+                }
+            });
+        });
+
+        $("#edit-btn").click(function ()
+        {
+            $.ajax({
+                    url: "@Url.Action("GetOne", "Organisation")",
+                    type: "GET",
+                    dataType: "html",
+                    data: { id: element },
+                success: function (data) {
+                    userDiv.html(data);
+                    $("#orgUpdateModal").modal("show");
+                }
+            });
+        });
+    });
+</script>
+}

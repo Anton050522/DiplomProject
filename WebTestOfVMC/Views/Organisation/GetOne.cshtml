@@ -1,0 +1,61 @@
+﻿@using WebTestOfVMC.Models
+@using EnumExt;
+
+@model OrganisationInfo
+
+<div id="organisationId">
+    @Html.HiddenFor(Model => Model.OrganisationId)
+</div>
+
+<div id="organisationName" class="poss_flex">
+    <div class="poss">
+        @Html.LabelFor(Model => Model.OrgName)
+    </div>
+    <div class="poss poss_right">
+        @Html.EditorFor(Model => Model.OrgName)
+    </div>
+</div>
+
+<div id="organisationRole" class="poss_flex">
+    <div class="poss">
+        @Html.LabelFor(Model => Model.OrganisationRole)
+    </div>
+    <div class="poss poss_right">
+        @Html.DropDownListFor(Model => Model.OrganisationRole, Model.OrganisationRole.GetSelectList())
+    </div>
+</div>
+
+<div id="organisationParent" class="poss_flex">
+    <div class="poss">
+        @Html.LabelFor(Model => Model.Parent)
+    </div>
+    <div class="poss poss_right">
+        @Html.DropDownListFor(Model => Model.Parent.OrganisationId, Model.SelectList)
+    </div>
+</div>
+
+<div id="organisationChildren" class="poss_flex">
+    <div class="poss">
+        @Html.LabelFor(Model => Model.Children)
+    </div>
+    <div class="poss poss_right">
+        @Html.ListBoxFor(Model => Model.SelectedOrganisations, Model.MultiSelectList,
+    new { @class = "multidropdown", multiple = "multiple" })
+    </div>
+    </div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".multidropdown").select2();
+    });
+
+
+</script>
+
+@section Scripts{
+    $(document).ready(function () {
+    $("#multidropdown").select2();
+    });
+
+}

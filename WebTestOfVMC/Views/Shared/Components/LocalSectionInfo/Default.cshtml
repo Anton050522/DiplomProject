@@ -1,0 +1,58 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@using Common.ListExtentions;
+@using RailDBProject.Model;
+
+@model LocalSectionInfo
+
+<div class="form-group">
+    <a button class="btn btn-outline-dark" data-toggle="modal" data-target="#registerModal">Добавить</a>
+</div>
+
+
+<form asp-action="CreateLocalSection" asp-controller="LocalSection" data-ajax="true"
+      data-ajax-method="POST" data-ajax-success="onSuccess">
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="text-center-modal">
+                        <div class="form-group">
+                            <p id="p1">Добавить организацию</p>
+                            <br />
+                            <div class="form-group">
+                                @Html.HiddenFor(Model => Model.LocalSectionId)
+
+                                @Html.LabelFor(Model => Model.LocaSectionName)
+                                <br />
+                                @Html.EditorFor(Model => Model.LocaSectionName)
+                                @Html.ValidationMessageFor(Model => Model.LocaSectionName)
+                                <br />
+                                @Html.LabelFor(Model => Model.LocalWayNumber)
+                                <br />
+                                @Html.EditorFor(Model => Model.LocalWayNumber)
+                                @Html.ValidationMessageFor(Model => Model.LocalWayNumber)
+                                <br />
+                                @Html.LabelFor(Model => Model.GlobalSection)
+                                <br />
+                                @Html.DropDownListFor(Model => Model.GlobalSection.OrganisationId, Model.SelectList)
+
+                                @Html.LabelFor(Model => Model.Organisation)
+                                <br />
+                                @Html.DropDownListFor(Model => Model.Organisation.OrganisationId, Model.OrganisationSelectList)
+
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-outline-dark" value="Добавить" id="sub" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

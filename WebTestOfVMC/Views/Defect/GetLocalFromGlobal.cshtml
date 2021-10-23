@@ -1,0 +1,12 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@model DefectInfo
+
+
+<div id="selectDiv">
+    @Html.LabelFor(@Model => Model.LocalSection)
+    <br />
+    @Html.DropDownListFor(Model => Model.LocalSection.LocalSectionId, Model.LocalSectionSelectList)
+    <br />
+</div>

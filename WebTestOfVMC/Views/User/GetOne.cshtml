@@ -1,0 +1,57 @@
+﻿@using WebTestOfVMC.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using EnumExt;
+@model UserInfo
+
+<div id="userId">
+    @Html.HiddenFor(Model => Model.UserId)
+</div>
+
+<div id="userLastName">
+    @Html.LabelFor(Model => Model.LastName)
+    <br />
+    @Html.EditorFor(Model => Model.LastName)
+</div>
+
+<div id="userFirstName">
+    @Html.LabelFor(Model => Model.FirstName)
+    <br />
+    @Html.EditorFor(Model => Model.FirstName)
+</div>
+
+<div id="userSurName">
+    @Html.LabelFor(Model => Model.SurName)
+    <br />
+    @Html.EditorFor(Model => Model.SurName)
+</div>
+
+<div id="useremail">
+    @Html.LabelFor(Model => Model.Email)
+    <br />
+    @Html.EditorFor(Model => Model.Email)
+</div>
+
+<div id="userLogin">
+    @Html.LabelFor(Model => Model.PhoneNumber)
+    <br />
+    @Html.EditorFor(Model => Model.PhoneNumber)
+</div>
+
+<div id="userPassword">
+    @Html.LabelFor(Model => Model.Password)
+    <br />
+    @Html.EditorFor(Model => Model.Password)
+</div>
+
+<div id="userOrganisations">
+    @Html.LabelFor(Model => Model.Organisation)
+    <br />
+    @Html.DropDownListFor(Model => Model.OrganisationId, Model.SelectList)
+</div>
+
+<div id="userRoles">
+    @Html.LabelFor(Model => Model.UserRole)
+    <br />
+    @Html.DropDownListFor(Model => Model.UserRole, Model.UserRole.GetSelectList())
+</div>
+
