@@ -46,9 +46,6 @@
 
                         </li>
                     </ul>}
-
-                       
-
                     </div>
                 </div>
             </nav>
@@ -164,39 +161,6 @@
             </div>
         </footer>
     </div>
-        @*Modals*@
-
-<div class="modal fade" id="manageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="text-center-modal">
-                    <div class="form-group">
-                        <p id="p1">Меню</p>
-
-                        <div>
-                            <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Index">Аккаунты</a>
-                        </div>
-
-                        <div>
-                            <a class="nav-link text-white" asp-area="" asp-controller="Organisation" asp-action="Index">Организации</a>
-                        </div>
-
-                        <div>
-                            <a class="nav-link text-white" asp-area="" asp-controller="GlobalSection" asp-action="Index">Направления</a>
-                        </div>
-
-                        <div>
-                            <a class="nav-link text-white" asp-area="" asp-controller="LocalSection" asp-action="Index">Перегоны</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>    
-
-
 
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         @await Html.PartialAsync("_ValidationScriptsPartial")

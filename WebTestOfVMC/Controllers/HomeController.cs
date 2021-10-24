@@ -18,7 +18,12 @@ namespace WebTestOfVMC.Controllers
         {
             return View();
         }
-        
+
+        public IActionResult Resources()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
