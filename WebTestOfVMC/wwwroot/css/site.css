@@ -43,6 +43,7 @@ select {
 .btn {
     font-size: 12px;
 }
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -171,7 +172,6 @@ body, html {
 
 .autorization {
     font-size: 20px;
-    
 }
 
 .filter-text {
@@ -248,13 +248,13 @@ body, html {
     height: 100px;
 }
 
-.pos-icon{
+.pos-icon {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.poss-elm1{
+.poss-elm1 {
     order: 3
 }
 
@@ -276,7 +276,7 @@ body, html {
     width: 200px;
 }
 
-tbody { 
+tbody {
     display: table;
 }
 
@@ -318,7 +318,7 @@ td {
     border-collapse: collapse;
 }
 
-th { 
+th {
     vertical-align: inherit;
 }
 
@@ -326,7 +326,7 @@ th {
     font-size: 10px;
 }
 
-.icon_th{
+.icon_th {
     display: flex;
     justify-content: center;
 }
@@ -381,6 +381,7 @@ div > .model-body {
     display: flex;
     flex-direction: column;
 }
+
 .poss {
     display: flex;
     justify-content: end;
@@ -487,7 +488,7 @@ label {
     text-align: center;
     flex: 1 33.333%;
     max-width: 25%;
-    border: 2px solid #fff; 
+    border: 2px solid #fff;
 }
 
 .bg_node {
@@ -574,7 +575,6 @@ label {
         background-color: #002b8e;
         margin-left: -35px;
         border-radius: 10px;
-        
     }
 
 
@@ -603,6 +603,7 @@ label {
             border-color: white;
             top: 20px;
         }
+
         .test_menu li ul li a {
             border-radius: 10px;
             margin: 0;
@@ -628,12 +629,12 @@ label {
             width: 300px;
         }
 
-    .main_menu div {
-        float: left;
-        margin: 20px;
-        padding-right: 220px;
-        white-space: normal;
-    }
+.main_menu div {
+    float: left;
+    margin: 20px;
+    padding-right: 220px;
+    white-space: normal;
+}
 
 .main_element {
     float: left;
@@ -642,23 +643,49 @@ label {
     height: 200px;
 }
 
+#userEmail {
+    color: white;
+    text-align: center;
+    float: left;
+}
+
 .headerOfTable {
     display: flex;
     justify-content: space-between;
+    margin: 5px;
 }
 
 .excel {
     display: block;
     max-width: 100%;
     height: auto;
-    padding: 5px;
+    padding: 10px;
 }
 
-.excel-div{
+.excel-div {
     display: flex;
-    max-height: 50px;
-    max-width: 50px;
+    max-height: 45px;
+    max-width: 45px;
     border: 2px solid #fff;
     border-radius: 5px;
     margin-right: 20px;
+    background-color: #298e19;
+    transition: all .5s;
+    box-shadow: 3px 3px 3px #00a4ff;
+}
+
+    .excel-div:hover {
+        background-color: #006ec1;
+        box-shadow: 0px 0px 20px rgba(110,197,238,0.8);
+        -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.7, transparent), to(rgba(0,0,0,0.4)));
+    }
+
+.form_button {
+    display: flex;
+}
+
+.form_file {
+    align-items: center;
+    font-size: 12px;
+    padding: 2px;
 }
