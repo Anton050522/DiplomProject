@@ -18,6 +18,12 @@ namespace RailDBProject.Repository
             get => _defects == null ? _defects = new DefectRepository(_context) : _defects;
         }
 
+        public IDangerousDefectRepository _dangerousDefects;
+        public IDangerousDefectRepository DangerousDefects
+        {
+            get => _dangerousDefects == null ? _dangerousDefects = new DangerousDefectRepository(_context) : _dangerousDefects;
+        }
+
         public IGlobalSectionRepository _globalSections;
         public IGlobalSectionRepository GlobalSections
         {

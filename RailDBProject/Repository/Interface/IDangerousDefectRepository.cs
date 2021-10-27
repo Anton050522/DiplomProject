@@ -2,7 +2,7 @@
 
 namespace RailDBProject.Repository.Interface
 {
-    public interface IDefectRepository : IRepository<Defect>
+    public interface IDangerousDefectRepository : IRepository<DangerousDefect>
     {
     }
 }

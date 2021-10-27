@@ -2,14 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace RailDBProject.Model
 {
-    public class Defect
+    public class DangerousDefect
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int DefectId { get; set; }
+        public int DangerousDefectId { get; set; }
         [Required]
         public int Kilometer { get; set; }
         [Required]
@@ -25,15 +24,19 @@ namespace RailDBProject.Model
         [Required]
         public string ManufactureYear { get; set; }
         [Required]
-        public double DefectDepth { get; set; }
+        public double DangerousDefectDepth { get; set; }
         [Required]
-        public double DefectLenght { get; set; }
+        public double DangerousDefectLenght { get; set; }
+
         [Required]
-        public DefectCodes DefectCode { get; set; }
-        public string DefectCodeName { get; set; }
+        public double DangerousDefectAverageDepth { get; set; }
+        [Required]
+        public double DangerousDefectAverageLenght { get; set; }
+        [Required]
+        public DangerousDefectCodes DangerousDefectCode { get; set; }
+        public string DangerousDefectCodeName { get; set; }
         public bool IsDeleted { get; set; }
 
-        //public int LocalSectionId { get; set; }
         public virtual LocalSection LocalSection { get; set; }
     }
 }

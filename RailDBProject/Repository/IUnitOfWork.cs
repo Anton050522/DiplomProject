@@ -7,6 +7,7 @@ namespace RailDBProject.Repository
     public interface IUnitOfWork : IDisposable
     {
         IDefectRepository Defects { get; }
+        IDangerousDefectRepository DangerousDefects { get; }
         IGlobalSectionRepository GlobalSections { get; }
         ILocalSectionRepository LocalSections { get; }
         IOrganisationRepository Organisations { get; }

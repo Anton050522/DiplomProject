@@ -27,6 +27,7 @@ namespace RailDBProject
         }
 
         public DbSet<Defect> Defects { get; set; }
+        public DbSet<DangerousDefect> DangerousDefects { get; set; }
         public DbSet<GlobalSection> GlobalSections { get; set; }
         public DbSet<LocalSection> LocalSections { get; set; }
         public DbSet<Organisation> Organisations { get; set; }
