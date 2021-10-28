@@ -29,7 +29,6 @@ namespace WebApplication.Controllers
         private readonly IOrganisationServices _organisationServices;
         private readonly IUserServices _userServices;
         public static DefectIndexViewModel currentModel;
-        public static Defect defect1;
 
         public DefectController(IDefectServices _defectService, ILocalSectionServices _localSectionServices,
                 IGlobalSectionServices _globalSectionServices, IOrganisationServices _organisationServices, IUserServices _userServices)
@@ -173,7 +172,9 @@ namespace WebApplication.Controllers
                 LocalSectionFilter = new LocalSectionFilter(_localSectionServices.GetLocalSectionList(), lcSection, localName),
                 Defects = items
             };
+
             currentModel = viewModel;
+
             return View(viewModel);
         }
 
@@ -201,8 +202,6 @@ namespace WebApplication.Controllers
                 LocalSectionCollection = _localSectionServices.GetLocalSectionList(),
                 LocalSectionSelectList = _localSectionServices.GetLocalSectionList().GetLocalSectionSelectList()
             };
-
-            defect1 = _defect;
             return PartialView(model);
         }
 
@@ -273,7 +272,7 @@ namespace WebApplication.Controllers
 
             return Json(new
             {
-                url = Url.Action("Index", "User"),
+                url = Url.Action("Index", "Defect"),
                 emailMessage = "Удаление прошло успешно!"
 
             });
@@ -349,56 +348,6 @@ namespace WebApplication.Controllers
                     };
                 }
             }
-        }
-        [HttpGet]
-        public IActionResult GetOneDefect()
-        {
-            using IXLWorkbook workbook = new XLWorkbook();
-            var worksheet = workbook.Worksheets.Add("Информация по дефекту");
-
-            worksheet.Cell(1, 1).Value = "Информация о дефекте";
-            worksheet.Cell(1, 1).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-            worksheet.Cell(1, 1).Style.Fill.BackgroundColor = XLColor.Cyan;
-            worksheet.Range(1, 1, 1, 12).Merge().AddToNamed("Titles");
-            worksheet.Cell(2, 1).Value = "Дата обнаружения";
-            worksheet.Cell(2, 2).Value = "Перегон";
-            worksheet.Cell(2, 3).Value = "№ пути";
-            worksheet.Cell(2, 4).Value = "Километр";
-            worksheet.Cell(2, 5).Value = "Пикет";
-            worksheet.Cell(2, 6).Value = "Звено";
-            worksheet.Cell(2, 7).Value = "Нить";
-            worksheet.Cell(2, 8).Value = "Производитель";
-            worksheet.Cell(2, 9).Value = "Год прокатки";
-            worksheet.Cell(2, 10).Value = "Код дефекта";
-            worksheet.Cell(2, 11).Value = "Глубина залегания (Н)";
-            worksheet.Cell(2, 12).Value = "Протяженность (L)";
-            worksheet.Row(1).Style.Font.Bold = true;
-
-
-            worksheet.Cell(3, 1).Value = defect1.DateOfDetection;
-            worksheet.Cell(3, 2).Value = defect1.LocalSection.LocalSectionName;
-            worksheet.Cell(3, 3).Value = defect1.LocalSection.LocalWayNumber;
-            worksheet.Cell(3, 4).Value = defect1.Kilometer;
-            worksheet.Cell(3, 5).SetValue(defect1.Pkt);
-            worksheet.Cell(3, 6).Value = defect1.Path;
-            worksheet.Cell(3, 7).Value = defect1.WaySide.GetEnumDescription();
-            worksheet.Cell(3, 8).Value = defect1.Manufacture.GetEnumDescription();
-            worksheet.Cell(3, 9).Value = defect1.ManufactureYear;
-            worksheet.Cell(3, 10).Value = defect1.DefectCode.GetEnumDescription();
-            worksheet.Cell(3, 11).Value = defect1.DefectDepth;
-            worksheet.Cell(3, 12).Value = defect1.DefectLenght;
-
-            using var ms = new MemoryStream();
-            worksheet.Columns().AdjustToContents();
-            worksheet.Rows().AdjustToContents();
-            workbook.SaveAs(ms);
-            ms.Flush();
-            return new FileContentResult(ms.ToArray(),
-                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-            {
-                FileDownloadName = $"Информация по дефекту {defect1.DefectCode.GetEnumDescription()} выявленого " +
-                $"{defect1.DateOfDetection}.xlsx"
-            };
         }
     }
 }

@@ -12,6 +12,7 @@ using Project.BLL.Services.IServiceIntefaces;
 using RailDBProject.Model;
 using Services.Interface;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -207,68 +208,6 @@ namespace WebTestOfVMC.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Contacts(int? company, string name, int page = 1, UserSortState sortOrder = UserSortState.FirstNameAsc)
-        {
-            int pageSize = 10;
-
-            IQueryable<User> users = _userServices.GetQuarable();
-
-
-            if (company != null && company != 0)
-            {
-                users = users.Where(p => p.OrganisationId == company);
-            }
-
-            switch (sortOrder)
-            {
-                case UserSortState.FirstNameDesc:
-                    users = users.OrderByDescending(s => s.FirstName);
-                    break;
-                case UserSortState.FirstNameAsc:
-                    users = users.OrderBy(s => s.FirstName);
-                    break;
-                case UserSortState.LastNameDesc:
-                    users = users.OrderByDescending(s => s.LastName);
-                    break;
-                case UserSortState.LastNameAsc:
-                    users = users.OrderBy(s => s.LastName);
-                    break;
-                case UserSortState.OrganisationDesc:
-                    users = users.OrderByDescending(s => s.Organisation);
-                    break;
-                case UserSortState.OrganisationAsc:
-                    users = users.OrderBy(s => s.Organisation);
-                    break;
-                case UserSortState.UserRoleDesc:
-                    users = users.OrderByDescending(s => s.UserRole);
-                    break;
-                case UserSortState.UserRoleAsc:
-                    users = users.OrderBy(s => s.UserRole);
-                    break;
-                case UserSortState.EmailDesc:
-                    users = users.OrderByDescending(s => s.Email);
-                    break;
-                case UserSortState.EmailAsc:
-                    users = users.OrderBy(s => s.Email);
-                    break;
-            }
-
-            var count = await users.CountAsync();
-            var items = await users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            UserIndexViewModel viewModel = new UserIndexViewModel
-            {
-                PageView = new PageView(count, page, pageSize),
-                UserSortViewModel = new UserSortViewModel(sortOrder),
-                OrganisationFilter = new OrganisationFilter(_userServices.GetOrganisationList(), company, name),
-                Users = items
-            };
-
-            currentModel = viewModel;
-
-            return View(viewModel);
-        }
-
             public IActionResult Export(string name)
         {
             using (IXLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled)) {
@@ -350,6 +289,28 @@ namespace WebTestOfVMC.Controllers
                 FileDownloadName = $"Досье на пользователя {_userNew.LastName + " " + _userNew.FirstName + " " + _userNew.SurName}.xlsx"
             };
         }
+        public IActionResult Contacts()
+        {
+            var allUsers = _userServices.GetQuarable().ToList();
+            var users = new List<UserInfo>();
+            foreach (var item in allUsers)
+            {
+                users.Add(new UserInfo()
+                {
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    SurName = item.LastName,
+                    Organisation = item.Organisation,
+                    Email = item.Email,
+                    PhoneNumber = item.PhoneNumber
+                });
+            }
+            return View(users);
+        }
     }
+    
+
+   
 }
+
 

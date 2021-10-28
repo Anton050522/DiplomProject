@@ -7,10 +7,10 @@
 @using RailDBProject.Model;
 @using CommonClasses.PaginationAndSort.Filters
 
-@model DefectIndexViewModel
+@model DangerousDefectIndexViewModel
 
 <div class="headerOfTable">
-    <div><p class="filter-text">Дефектные рельсы</p></div>
+    <div><p class="filter-text">Остродефектные рельсы</p></div>
     <div class="excel-div"><img class="excel" src="~/images/exportToExcel.png" /></div>
 </div>
 <br />
@@ -20,7 +20,7 @@
 
     <div id="manipulation-buttons">
         <div class="create-button button__style">
-            @await Component.InvokeAsync("DefectInfo")
+            @await Component.InvokeAsync("DangerousDefectInfo")
         </div>
         <div class="edit-button button__style">
             <input type="submit" class="btn btn-outline-dark" value="Редактировать" id="edit-btn" />
@@ -42,7 +42,7 @@
                     <select name="lcSection" asp-items="Model.LocalSectionFilter.LocalSections" class="form-control"></select>
 
                     <p1 class="p1">Код дефекта: </p1>
-                    <select name="defect" asp-items="Model.DefectFilter.Defects" class="form-control"></select>
+                    <select name="defect" asp-items="Model.DangerousDefectFilter.DangerousDefects" class="form-control"></select>
 
                     <input type="submit" value="Применить фильтр" class="btn btn-outline-dark" />
                 </div>
@@ -59,108 +59,124 @@
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.DateOfDetectionSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Дата обнаружения </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.DateOfDetectionSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Дата обнаружения </p><img src="~/images/sort.png" id="sort" /></div></a>
 
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.LocalSectionNameSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Перегон </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.LocalSectionNameSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Перегон </p><img src="~/images/sort.png" id="sort" /></div></a>
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.LocalSectionWaySort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">№ пути </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.LocalSectionWaySort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">№ пути </p><img src="~/images/sort.png" id="sort" /></div></a>
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.KilometerSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Километр </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.KilometerSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Километр </p><img src="~/images/sort.png" id="sort" /></div></a>
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.PktSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Пикет </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.PktSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Пикет </p><img src="~/images/sort.png" id="sort" /></div></a>
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.PathSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Звено </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.PathSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Звено </p><img src="~/images/sort.png" id="sort" /></div></a>
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.WaySideSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Нить </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.WaySideSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Нить </p><img src="~/images/sort.png" id="sort" /></div></a>
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.ManufactureSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Производитель </p><img src="~/images/sort.png" id="sort" /></div></a>
-
-            </th>
-
-            <th>
-                <a asp-action="Index"
-                   asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.ManufactureYearSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Год прокатки </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.ManufactureSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Производитель </p><img src="~/images/sort.png" id="sort" /></div></a>
 
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.DefectCodeSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Код дефекта </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.ManufactureYearSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Год прокатки </p><img src="~/images/sort.png" id="sort" /></div></a>
+
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.DefectDepthSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Глубина залегания (H) </p><img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.DangerousDefectCodeSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Код дефекта </p><img src="~/images/sort.png" id="sort" /></div></a>
             </th>
 
             <th>
                 <a asp-action="Index"
                    asp-controller="Defect"
-                   asp-route-sortOrder="@(Model.DefectSortViewModel.DefectLenghtSort)"
-                   asp-route-name="@(Model.DefectFilter.SelectedName)"
-                   asp-route-company="@(Model.DefectFilter.SelectedDefect)"><div class="icon_th"><p class="p1 th_size">Протяженность (L)</p> <img src="~/images/sort.png" id="sort" /></div></a>
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.DangerousDefectDepthSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Глубина залегания (H) </p><img src="~/images/sort.png" id="sort" /></div></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Defect"
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.DangerousDefectLenghtSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Протяженность (L)</p> <img src="~/images/sort.png" id="sort" /></div></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Defect"
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.DangerousDefectAverageDepthSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Условная высота (H усл.) </p><img src="~/images/sort.png" id="sort" /></div></a>
+            </th>
+
+            <th>
+                <a asp-action="Index"
+                   asp-controller="Defect"
+                   asp-route-sortOrder="@(Model.DangerousDefectSortViewModel.DangerousDefectAverageLenghtSort)"
+                   asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+                   asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"><div class="icon_th"><p class="p1 th_size">Протяженность (L усл.)</p> <img src="~/images/sort.png" id="sort" /></div></a>
             </th>
 
         </tr>
 
         @{ int rowNo = 0; }
-        @foreach (Defect d in Model.Defects)
+        @foreach (DangerousDefect d in Model.DangerousDefects)
         {
-            <tr class="table-row" id="@d.DefectId">
+            <tr class="table-row" id="@d.DangerousDefectId">
                 <td>@(rowNo += 1)</td>
                 <td>@d.DateOfDetection.ToShortDateString()</td>
                 <td>@d.LocalSection.LocalSectionName</td>
@@ -171,9 +187,11 @@
                 <td>@d.WaySide.GetEnumDescription()</td>
                 <td>@d.Manufacture.GetEnumDescription()</td>
                 <td>@d.ManufactureYear</td>
-                <td>@d.DefectCode.GetEnumDescription()</td>
-                <td>@d.DefectDepth</td>
-                <td>@d.DefectLenght</td>
+                <td>@d.DangerousDefectCode.GetEnumDescription()</td>
+                <td>@d.DangerousDefectDepth</td>
+                <td>@d.DangerousDefectLenght</td>
+                <td>@d.DangerousDefectAverageDepth</td>
+                <td> @d.DangerousDefectAverageLenght</td>
 
             </tr>
         }
@@ -185,9 +203,9 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.PageView.PageNumber - 1)"
-       asp-route-name="@(Model.DefectFilter.SelectedName)"
-       asp-route-company="@(Model.DefectFilter.SelectedDefect)"
-       asp-route-sortorder="@(Model.DefectSortViewModel.Current)"
+       asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+       asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"
+       asp-route-sortorder="@(Model.DangerousDefectSortViewModel.Current)"
        class="btn  btn-outline-dark">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Назад
@@ -197,16 +215,16 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.PageView.PageNumber + 1)"
-       asp-route-name="@(Model.DefectFilter.SelectedName)"
-       asp-route-company="@(Model.DefectFilter.SelectedDefect)"
-       asp-route-sortorder="@(Model.DefectSortViewModel.Current)"
+       asp-route-name="@(Model.DangerousDefectFilter.SelectedName)"
+       asp-route-company="@(Model.DangerousDefectFilter.SelectedDangerousDefect)"
+       asp-route-sortorder="@(Model.DangerousDefectSortViewModel.Current)"
        class="btn btn-outline-dark">
         Вперед
         <i class="glyphicon glyphicon-chevron-right"></i>
     </a>
 }
 
-<form asp-action="UpdateDefect" asp-controller="Defect" asp-route-id="id" data-ajax="true"
+<form asp-action="UpdateDangerousDefect" asp-controller="DangerousDefect" asp-route-id="id" data-ajax="true"
       data-ajax-method="POST" data-ajax-success="onUpdate">
 
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -262,17 +280,18 @@
             $(".edit-button").hide();
             $(".delete-button").hide();
 
+
             var txt = $('.dropDownId :selected').text();
 
-             $.ajax({
-                 url: "@Url.Action("GetLocalFromGlobal","Defect")",
-                 type: "post",
-                 cache: false,
-                 data: { 'name': txt },
-                 success: function (data) {
-                     selectDiv.html(data);
-                 },
-             });
+                $.ajax({
+                    url: "@Url.Action("GetLocalFromGlobal","DangerousDefect")",
+                    type: "post",
+                    cache: false,
+                    data: { 'name': txt },
+                    success: function (data) {
+                        selectDiv.html(data);
+                    },
+                });
 
             $(".table-row").click(function () {
 
@@ -303,10 +322,10 @@
 
             $(".globalSect").change(function () {
                 var txt = $('.dropDownId :selected').text();
-              /*  alert(txt);*/
+                alert(txt);
 
                 $.ajax({
-                    url: "@Url.Action("GetLocalFromGlobal","Defect")",
+                    url: "@Url.Action("GetLocalFromGlobal","dangerousDefect")",
                     type: "post",
                     cache: false,
                     data: { 'name': txt },
@@ -318,7 +337,7 @@
 
             $("#delete-btn").click(function () {
                 $.ajax({
-                    url: "@Url.Action("DeleteDefect","Defect")",
+                    url: "@Url.Action("DeleteDangerousDefect","DangerousDefect")",
                     type: "POST",
                     dataType: "html",
                     data: { id: element },
@@ -332,7 +351,7 @@
             $("#edit-btn").click(function ()
             {
                 $.ajax({
-                        url: "@Url.Action("GetOne", "Defect")",
+                        url: "@Url.Action("GetOne", "DangerousDefect")",
                         type: "GET",
                         dataType: "html",
                         data: { id: element },
@@ -346,7 +365,7 @@
 
             $(".excel").click(function ()
             {
-                window.location.href =  "@Url.Action("Export", "Defect")"
+                window.location.href =  "@Url.Action("Export", "DangerousDefect")"
             });
         });
 

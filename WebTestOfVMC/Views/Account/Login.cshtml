@@ -1,5 +1,5 @@
 ﻿@model WebTestOfVMC.ViewModels.LoginModel
-   
+
 <div class="autorization-window" id="login-window">
 
     <div class="text-center" id="login">
@@ -70,22 +70,22 @@
                     </ul>
                 </p>
             </div>
-
         </div>
-
-
-
     </div>
-</div>
 
-@section Scripts{
 
-    <script>
+
+
+
+
+    @section Scripts{
+
+        <script>
         function onSuccess(data) {
             $(document).on("ajaxSuccess", function () {
                 alert(data.newData.emailMessage);
                 window.location = data.newData.url;
             });
         }
-    </script>
-}
+        </script>
+    }

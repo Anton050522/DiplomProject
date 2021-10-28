@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/lib/chosen/chosen.css" rel="stylesheet" />
     <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
-    <link href="~/css/MySite.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -34,18 +34,19 @@
 
                         @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                         {
-                    <ul class="navbar-nav flex-grow-1">
-                        <li>
-                            <div class="form-group">
-                                <div id="userEmail">
-                                    Вы вошли как - @Html.ViewContext.HttpContext.User.Identity.Name
+                            <ul class="navbar-nav flex-grow-1">
+                                <li>
+                                    <div class="form-group">
+                                        <div id="userEmail">
+                                            Вы авторизовались как @Html.ViewContext.HttpContext.User.Identity.Name
+                                        </div>
+                                        <a class="btn btn-outline-dark" id="logout" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
+                                    </div>
 
-                                </div>
-                                <a class="btn btn-outline-dark" id="logout" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
-                            </div>
+                                </li>
+                            </ul>
+                        }
 
-                        </li>
-                    </ul>}
                     </div>
                 </div>
             </nav>
@@ -81,62 +82,35 @@
                             }
 
                         </li>
-                        <li>
-                            @if (ViewContext.HttpContext.User.IsInRole("Administrator") || ViewContext.HttpContext.User.IsInRole("DiagnosticEmploye"))
-                            {
-                                <a>
-                                    Центр диагностики
-                                    <p>
-                                        объектов инфраструктуры
-                                    </p>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Index">Дорожная лаборатория дефектоскопии</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Organisation" asp-action="Index">Вагоны-дефектоскопы</a>
-                                    </li>
-                                </ul>
-                            }
 
-                        </li>
-                        <li>
-                            @if (ViewContext.HttpContext.User.IsInRole("Administrator") || ViewContext.HttpContext.User.IsInRole("DiagnosticEmploye") || ViewContext.HttpContext.User.IsInRole("AdministrationSupervisor"))
-                            {
-                                <a>Отделения БелЖД</a>
-                                <ul>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Index">Все отделения</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Organisation" asp-action="Index">Минское отделение БелЖД</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Organisation" asp-action="Index">Барановичское отделение БелЖД</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Organisation" asp-action="Index">Брестское отделение БелЖД</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Organisation" asp-action="Index">Гомельское отделение БелЖД</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Organisation" asp-action="Index">Могилёвское отделение БелЖД</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Organisation" asp-action="Index">Витебское отделение БелЖД</a>
-                                    </li>
-                                </ul>
-                            }
-                        </li>
+                        @if (!ViewContext.HttpContext.User.IsInRole("newUser"))
+                        {
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="File" asp-action="Index">Нормативная документация</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Defect" asp-action="Index">Журнал ф. ПУ-2а</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="DangerousDefect" asp-action="Index">Журнал ф. ПУ-2б</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Operator" asp-action="Index">Операторы</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Defectoscope" asp-action="Index">Парк дефектоскопов</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Contacts">Контакты</a>
+                            </li>
+                        }
                     </ul>
                     <div class="logotype_p">
                         <div class="logotype">
                             <img id="logotype" src="~/images/logo.gif" alt="it must be a logotype" />
                         </div>
                     </div>
-                   
+
                 </div>
                 <div id="submenu-area">
                     <div class="container">
@@ -149,12 +123,11 @@
             </div>
         }
 
-        @*<div class="container">*@
-            <main role="main" class="pb-1">
+        <main role="main" class="pb-1">
 
-                @RenderBody()
-            </main>
-        @*</div>*@
+            @RenderBody()
+        </main>
+
         <footer class="border-top text-muted">
             <div class="container__footer">
                 &copy; 2021 - Дорожная лаборатория дефектоскопии
@@ -162,16 +135,15 @@
         </footer>
     </div>
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        @await Html.PartialAsync("_ValidationScriptsPartial")
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-        <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
-        <script src="~/lib/chosen/chosen.jquery.js"></script>
-        <script src="~/lib/select2/js/select2.js"></script>
-        @RenderSection("Scripts", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/lib/chosen/chosen.jquery.js"></script>
+    <script src="~/lib/select2/js/select2.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
-

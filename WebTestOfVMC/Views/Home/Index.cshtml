@@ -1,55 +1,40 @@
-﻿<div class="bg_img">
+﻿<div id="info">
+    <div class="info-element">
+        <p class="info-text">АС "Дефектоскопия" - система автоматизированного учета:</p>
+        <p class="info-ul">
+            <ul class="list">
+                <li>дефектных и остродефектных рельсов (ф. ПУ-2а, ПУ-2б)</li>
+                <li>ультразвуковых рельсовых дефектоскопов, задействованных в проведении НК рельсов и сварных стыков</li>
+                <li>операторов дефектоскопных тележек в части закрепленного за ними оборудования и соблюдения периодичности повышения квалификации</li>
+            </ul>
+        </p>
+    </div>
 
-    <div class="nodes-container">
-
-        <div class="nodes">
-            <div class="nodes__1">
-                <div class="node bg_node">
-                    <a asp-action="Index"
-                       asp-controller="Defect">
-                        <div id="p1">Журнал ф. ПУ-2а</div>
-                        <div><img src="~/images/defect.jpg" class="node-image" /></div>
-                    </a>
-                </div>
-                <div class="node bg_node">
-                    <a asp-action="Index"
-                       asp-controller="Defectoscope">
-                        <div id="p1">Парк дефектоскопов</div>
-                        <div><img src="~/images/defectoscope.jpg" class="node-image" /></div>
-
-                    </a>
-                </div>
-                <div class="node bg_node">
-                    <a asp-action="Index"
-                       asp-controller="Operator">
-                        <div id="p1">Операторы</div>
-                        <div><img src="~/images/employers.jpg" class="node-image" /></div>
-                    </a>
-                </div>
-             </div>
-             <div class="nodes__1">
-                    <div class="node bg_node">
-                        <a href="#">
-                            <div id="p1">Журнал ф. ПУ-2б</div>
-                        <div><img src="~/images/dangerousDefect.jpg" class="node-image" /></div>
-                        </a>
-                    </div>
-                    <div class="node bg_node">
-                        <a href=https://www.rw.by target="_blank">
-                            <div id="p1">Сайт Белорусской железной дороги</div>
-                            <div><img src="~/images/Internet.png" class="node-image" /></div>
-                        </a>
-                    </div>
-                    <div class="node bg_node">
-                        <a asp-action="Resources"
-                           asp-controller="Home">
-                            <div id="p1">Дополнительные ресурсы</div>
-                            <div><img src="~/images/info4.jpg" class="node-image" /></div>\
-                            
-                        </a>
-                    </div>
-             </div>
+    <div class="info-element pos-icon">
+        <div class="poss-elm1"><img class="info-icon" src="~/images/infoIcon.png"></div>
+        <div class="poss-elm2">
+            <p class="info-text">Если у Вас еще нет учетной записи в АС "Дефектоскопия":</p>
+            <p class="info-ul">
+                <ul class="list">
+                    <li>пройдите процедуру регистрации нового пользователя</li>
+                    <li>ждите верификации Вашей учетной записи администратором</li>
+                </ul>
+            </p>
         </div>
     </div>
-</div>
 
+    <div class="info-element pos-icon">
+        <div class="poss-elm1">
+            <img class="info-icon" src="~/images/contactIcon.png">
+        </div>
+        <div class="poss-elm2">
+            <p class="info-text">Обратная связь:</p>
+            <p class="info-ul">
+                <ul class="list">
+                    <li>e-mail: aries85@bk.ru</li>
+                    <li>тел.: +375 (29) 217-05-24</li>
+                </ul>
+            </p>
+        </div>
+
+    </div>
