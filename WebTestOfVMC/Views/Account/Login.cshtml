@@ -72,20 +72,16 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
+</div>
     @section Scripts{
 
         <script>
-        function onSuccess(data) {
-            $(document).on("ajaxSuccess", function () {
-                alert(data.newData.emailMessage);
-                window.location = data.newData.url;
-            });
-        }
+            function onSuccess(data) {
+                $(document).on("ajaxSuccess", function () {
+                    alert(data.newData.emailMessage);
+                    window.location = data.newData.url;
+                });
+            }
         </script>
+       
     }

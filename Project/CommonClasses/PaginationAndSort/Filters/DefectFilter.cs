@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using RailDBProject.Model;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CommonClasses.PaginationAndSort.Filters
 {

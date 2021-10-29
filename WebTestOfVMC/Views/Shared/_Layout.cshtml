@@ -8,22 +8,73 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/lib/chosen/chosen.css" rel="stylesheet" />
     <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+    <script>
+        var months = new Array(13);
+        months[1] = "января"; months[2] = "февраля"; months[3] = "марта"; months[4] = "апреля"; months[5] = "мая"; months[6] = "июня"; months[7] = "июля"; months[8] = "августа"; months[9] = "сентября"; months[10] = "октября"; months[11] = "ноября"; months[12] = "декабря";
 
+        var time = new Date();
+        var thismonth = months[time.getMonth() + 1];
+        var date = time.getDate();
+        var thisyear = time.getYear();
+        var day = time.getDay() + 1;
+
+        if (thisyear < 2000)
+            thisyear = thisyear + 1900;
+        if (day == 1) DayofWeek = "Воскресенье";
+        if (day == 2) DayofWeek = "Понедельник";
+        if (day == 3) DayofWeek = "Вторник";
+        if (day == 4) DayofWeek = "Среда";
+        if (day == 5) DayofWeek = "Четверг";
+        if (day == 6) DayofWeek = "Пятница";
+        if (day == 7) DayofWeek = "Суббота";
+    </script>
+
+    <script>
+        setInterval(function () {
+            var cd = new Date();
+            var clockdat = document.getElementById("clockdat");
+            clockdat.innerHTML = cd.toLocaleTimeString();
+        }, 1000);
+    </script>
 </head>
 
 <body>
     <div class="wrapper">
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-2">
+               
+                
                 <div class="container">
 
                     @if (ViewContext.HttpContext.User.Identity.IsAuthenticated == false)
                     {
-                        <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">АС "Дефектоскопия"</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">АС "Дефектоскопия" 
+                    <div style="background-color: #3b424a; padding:5px;">
+                            <span style="color: aqua; font-size: 14px;">Сегодня:</span>
+                            <span style="color:silver; font-size:14px;">
+                                <script>
+                                    document.write(date + " ");
+                                    document.write(thismonth + " " + thisyear + " " + "года" + " — " + DayofWeek);
+                                </script>
+                                (<span id="clockdat" style="color: aqua; font-size: 14px;"></span>)
+                            </span>
+                        </div>
+                    </a>
                     }
                     @if (ViewContext.HttpContext.User.Identity.IsAuthenticated == true)
                     {
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">АС "Дефектоскопия"</a>
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">АС "Дефектоскопия"
+                    <div style="background-color: #3b424a; padding:5px;">
+                            <span style="color: aqua; font-size: 14px;">Сегодня:</span>
+                            <span style="color:silver; font-size:14px;">
+                                <script>
+                                    document.write(date + " ");
+                                    document.write(thismonth + " " + thisyear + " " + "года" + " — " + DayofWeek);
+                                </script>
+                                (<span id="clockdat" style="color: aqua; font-size: 14px;"></span>)
+                             </span>
+                        </div>
+                    </a>
                     }
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
